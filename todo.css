@@ -20,6 +20,7 @@ hr {
     background-color: gray;
 }
 .wrapper {
+    min-width: 400px;
     width: 400px;
     height: auto;
     padding: 20px;
