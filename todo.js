@@ -6,7 +6,7 @@ const btnDelete = document.getElementById("btnDelete");
 const textInput = document.getElementById("textInput");
 const ul = document.querySelector("ul");
 
-const todoList = [];
+let todoList = [];
 
 const inputChecker = function () {
   let inputValue = textInput.value;
@@ -20,21 +20,39 @@ const inputChecker = function () {
   return true;
 };
 
-function deleteList(key) {
-  todoList.splice(key, 1);
+const deleteDataFromTheList = (list, index) => {
+  if (list.length > 1) {
+    list.splice(index, 1);
+    renderList();
+  }
+};
+const insertDataToTheList = (list, data) => {
+  list.push(data);
+  renderList();
+  clearInput();
+};
+
+const clearList = () => {
+  if(todoList.length >= 1)
+  {
+    todoList = [];
+    renderList();
+  }else {
+    alert("There is nothing to remove on the list");
+  }
+  
+};
+const clearInput = () => {
+  textInput.value = '';
+}
+
+function deleteList(index) {
+  todoList.splice(index, 1);
   renderList();
 }
 
-function renderList () {
+function renderList() {
   ul.innerHTML = "";
-  // todoList.forEach(function (todo) {
-  //   let li = document.createElement("li");
-  //   li.onclick = function () {
-  //     console.log(key);
-  //   };
-  //   li.textContent = todo;
-  //   ul.appendChild(li);
-  // });
   todoList.map(function (todo, key) {
     let li = document.createElement("li");
     li.onclick = function () {
@@ -47,23 +65,10 @@ function renderList () {
 
 // button event listeners
 btnAdd.addEventListener("click", function () {
-  if (inputChecker()) {
-    // //  create the element we want to add
-    // const newElement = document.createElement('li');
-    // // add the text to the element
-    // newElement.innerText = textInput.value;
-    // todoList.push(textInput.value);
-    // console.log(todoList);
-    // // add the element to the DOM
-    // ul.appendChild(newElement);
-    todoList.push(textInput.value);
-    renderList();
-  }
+  inputChecker() && insertDataToTheList(todoList, textInput.value);
+
 });
 
 btnDelete.addEventListener("click", function () {
-    // check if the ul has any child
-    // yes => remove the last child
-    // no => alert the user
-    ul.childElementCount > 0 ? ul.removeChild(ul.lastElementChild) : alert("There is no element to delete");
+  clearList(todoList);
 });

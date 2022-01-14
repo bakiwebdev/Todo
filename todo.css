@@ -57,6 +57,10 @@ li {
     font-stretch: wider;
     color: #676767;
 }
+li:hover {
+    background-color: #9eb9ff;
+    color: white;
+}
 
 #btnAdd {
     background-color: #5e89f7;
